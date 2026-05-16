@@ -45,7 +45,7 @@
                 </a>
 
                 <h2>League Statistics</h2>
-                Stats last updated: Saturday May 16, 2026 at 15:41
+                Stats last updated: Saturday May 16, 2026 at 16:30
                 <div id="table-container" width="100%"></div>
                 <h2> Full GC stats by team
                 </h2>
@@ -106,11 +106,18 @@
             ]
             */
         });
-        $(document).ready(function () {
-          var table = $('#table-container-table').DataTable();
+
+
+        $('#table-container-table').on('init.dt', function () {
+            var table = $('#table-container-table').DataTable();
         
-          // Target ONE column
-          // var column = table.columns(3);
+            // ✅ Safe to use DataTables API here
+            var column = table.columns(3);
+          });
+        
+        });
+        
+          
         });
 
         
