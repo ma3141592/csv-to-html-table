@@ -26,6 +26,7 @@
             widgetId: "8cbb7b32-ae50-4f82-9d43-badf7c420984",
             maxVerticalGamesVisible: 2,
         })
+        
     </script>    
     
     <div class="container-fluid">
@@ -43,7 +44,7 @@
                 </a>
 
                 <h2>League Statistics</h2>
-                Stats last updated: Saturday May 16, 2026 at 14:25
+                Stats last updated: Saturday May 16, 2026 at 14:40
                 <div id="table-container" width="100%"></div>
                 <h2> Full GC stats by team
                 </h2>
@@ -103,6 +104,32 @@
             ]
             */
         });
+
+        (document).ready(function () {
+          var table = $('#table-container').DataTable();
+        
+          // Target ONE column (e.g., column index 2)
+          table.columns(3).every(function () {
+            var column = this;
+        
+            // Create dropdown
+            var select = $('<select><option value=""></option></select>')
+              .appendTo($(column.header()).empty())  // <-- puts it in HEADER
+              .on('change', function () {
+                var val = $.fn.dataTable.util.escapeRegex($(this).val());
+        
+                column
+                  .search(val ? '^' + val + '$' : '', true, false)
+                  .draw();
+              });
+        
+            // Populate with DISTINCT values
+            column.data().unique().sort().each(function (d) {
+              select.append('<option value="' + d + '">' + d + '</option>');
+            });
+          });
+        });
+        
     </script>
 </body>
 
