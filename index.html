@@ -43,8 +43,8 @@
                 </a>
 
                 <h2>League Statistics</h2>
-                Stats last updated: Saturday May 16, 2026 at 14:22
-                <div id="table-container" width="100%" height="400px"></div>
+                Stats last updated: Saturday May 16, 2026 at 14:25
+                <div id="table-container" width="100%"></div>
                 <h2> Full GC stats by team
                 </h2>
                 <ul>
@@ -93,7 +93,7 @@
             datatables_options: {
                 paging: false,
                 scrollX: true,
-                scrollY: true,
+                scrollY: '400px',
                 columnDefs: [{ visible: false, targets: [8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40] }],
             }
             /* custom formatting for columns. See docs on csv-to-html-table
