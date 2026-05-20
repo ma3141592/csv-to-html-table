@@ -9,7 +9,8 @@
         $(document).ready(function() {
             var pg_title = 'BRC 2026 Spring A League';
             var pg_header = 'BRC 2026 Spring A League Page';
-            var updated_at = 'Stats last updated: Tuesday May 19, 2026 at 20:00'
+            var updated_at = 'Stats last updated: Tuesday May 19, 2026 at 20:00';
+            var csv_location = 'data/brc-a-leaders.csv';
             
             document.querySelector("#pg_title").textContent = pg_title;
             document.querySelector("#pg_header").textContent = pg_header;
@@ -52,31 +53,21 @@
                 </a>
 
                 <h2>League Statistics</h2>
-                <div id="updated_at">Stats last updated: Tuesday May 19, 2026 at 20:00</div>
+                <div id="updated_at"></div>
                 
                 <div id="table-container" width="100%"></div>
-                <!--
-                <h2> Full GC stats by team
-                </h2>
-                <ul>
-                    
-                    <li><a href="data/shuckers.csv">Shuckers</a></li>
-                    <li><a href="data/woodpeckers.csv">Woodpeckers</a></li>
-                    <li><a href="data/yardgoats.csv">Yard Goats</a></li>
-                </ul>
+                <!-- Need some process and team staff to supply these data files
+                    <h2> Full GC stats by team
+                    </h2>
+                    <ul>
+                        
+                        <li><a href="data/shuckers.csv">Shuckers</a></li>
+                        <li><a href="data/woodpeckers.csv">Woodpeckers</a></li>
+                        <li><a href="data/yardgoats.csv">Yard Goats</a></li>
+                    </ul>
                 -->
             </div>
         </main>
-<!--        
-        <footer class="row">
-            <div class="col">
-                <hr>
-                <p class="text-right"><a href="https://github.com/derekeder/csv-to-html-table">CSV to HTML Table</a> by
-                    <a href="http://derekeder.com">Derek
-                        Eder</a></p>
-            </div>
-        </footer>
--->
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
@@ -86,13 +77,6 @@
     <script src="js/csv_to_html_table.js"></script>
 
     <script>
-        /* This is a custom column formatting function.
-        function format_link(link) {
-            if (link)
-                return "<a href='" + link + "' target='_blank'>" + link + "</a>";
-            else return "";
-        }
-        */
 
         CsvToHtmlTable.init({
             csv_path: "data/brc-a-leaders.csv",
@@ -109,14 +93,7 @@
                 retrieve: true,
                 columnDefs: [{ visible: false, targets: [8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40] }],
             }
-            /* custom formatting for columns. See docs on csv-to-html-table
-            ,
-            custom_formatting: [
-                [0, format_link]
-            ]
-            */
         });
-
 
         $('#table-container-table').on('init.dt', function () {
             var table = $('#table-container-table').DataTable();
