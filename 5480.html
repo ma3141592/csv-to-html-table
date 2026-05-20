@@ -5,9 +5,28 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CSV to HTML Table</title>
-    <meta name="author" content="Derek Eder">
-    <meta content="Display any CSV file as a searchable, filterable, pretty HTML table">
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.csv.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="js/csv_to_html_table.js"></script>
+    
+    <script>
+        var pg_title = 'BRC 2026 Spring 54/80 League';
+        var pg_header = 'BRC 2026 Spring 54/80 League Page';
+        var updated_at = 'Stats last updated: Tuesday May 19, 2026 at 20:00';
+        var csv_location = 'data/brc-5480-leaders.csv';
+        
+        $(document).ready(function() {
+            
+            document.querySelector("#pg_title").textContent = pg_title;
+            document.querySelector("#pg_header").textContent = pg_header;
+            document.querySelector("#updated_at").textContent = updated_at;
+        });
+    </script>
+    <title id="pg_title"></title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -21,19 +40,17 @@
     <!-- Put this before the closing </body> tag -->
     <script src="https://widgets.gc.com/static/js/sdk.v1.js"></script>
     <script>
-/*        
         window.GC.scoreboard.init({
             target: "#gc-scoreboard-widget-mag6",
             widgetId: "8cbb7b32-ae50-4f82-9d43-badf7c420984",
             maxVerticalGamesVisible: 2,
         })
-*/        
     </script>    
     
     <div class="container-fluid">
         <main class="row">
             <div class="col">
-                <h1>BRC 54/80 League Page</h1>
+                <h1 id="pg_header"></h1>
 <!--
                 <p>Display any CSV file as a searchable, filterable, pretty HTML table. Done in 100% JavaScript. <a
                         href="https://github.com/derekeder/csv-to-html-table">Code
@@ -45,48 +62,27 @@
                 </a>
 
                 <h2>League Statistics</h2>
-                Stats last updated: Saturday May 16, 2026 at 16:49
+                <div id="updated_at"></div>
+                
                 <div id="table-container" width="100%"></div>
-                <h2> Full GC stats by team
-                </h2>
-                <ul>
-                    
-                    <li><a href="data/shuckers.csv">Shuckers</a></li>
-                    <li><a href="data/woodpeckers.csv">Woodpeckers</a></li>
-                    <li><a href="data/yardgoats.csv">Yard Goats</a></li>
-                </ul>
-
+                <!-- Need some process and team staff to supply these data files
+                    <h2> Full GC stats by team
+                    </h2>
+                    <ul>
+                        
+                        <li><a href="data/shuckers.csv">Shuckers</a></li>
+                        <li><a href="data/woodpeckers.csv">Woodpeckers</a></li>
+                        <li><a href="data/yardgoats.csv">Yard Goats</a></li>
+                    </ul>
+                -->
             </div>
         </main>
-<!--        
-        <footer class="row">
-            <div class="col">
-                <hr>
-                <p class="text-right"><a href="https://github.com/derekeder/csv-to-html-table">CSV to HTML Table</a> by
-                    <a href="http://derekeder.com">Derek
-                        Eder</a></p>
-            </div>
-        </footer>
--->
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery.csv.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script src="js/csv_to_html_table.js"></script>
 
     <script>
-        /* This is a custom column formatting function.
-        function format_link(link) {
-            if (link)
-                return "<a href='" + link + "' target='_blank'>" + link + "</a>";
-            else return "";
-        }
-        */
 
         CsvToHtmlTable.init({
-            csv_path: "data/brc-5480-leaders.csv",
+            csv_path: csv_location,
             element: "table-container",
             allow_download: true,
             csv_options: {
@@ -100,14 +96,7 @@
                 retrieve: true,
                 columnDefs: [{ visible: false, targets: [8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40] }],
             }
-            /* custom formatting for columns. See docs on csv-to-html-table
-            ,
-            custom_formatting: [
-                [0, format_link]
-            ]
-            */
         });
-
 
         $('#table-container-table').on('init.dt', function () {
             var table = $('#table-container-table').DataTable();
